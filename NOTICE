@@ -1,0 +1,17 @@
+newmath-rgh — reading guide to the Riemann–GRH Lean proof + verification receipt
+Copyright (c) 2026 Tom Sarihan (Desnet AI LLC)
+
+This project is licensed under the MIT License (see LICENSE).
+
+Third-party components and sources:
+
+- Levent Alpöge's proof of the Riemann Hypothesis / GRH, announced 2026-11-20
+  (announcement: https://alpo.ge/remark.pdf; Lean archive at alpo.ge)
+  Belongs to its author and was published without a license. It is NOT redistributed
+  in this repository; links only. The mathematics is the author's (with Claude).
+- leanprover-community/riemann-hypothesis — Apache-2.0 (community wrapper,
+  Challenge/Comparator infrastructure): https://github.com/leanprover-community/riemann-hypothesis
+- Mathlib / Lean 4 — Apache-2.0: https://github.com/leanprover-community/mathlib4
+- con-ron — Rust port of con-leche, Lean FRO: https://github.com/leanprover/con-ron
+- Verification files from Andrew Sutherland (MIT): https://math.mit.edu/~drew/grh/
+- Quotations from media coverage are attributed inline to their sources.
