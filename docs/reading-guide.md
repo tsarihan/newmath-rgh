@@ -254,4 +254,15 @@ Debug history retained by design: searchsorted on a descending array gave rank 1
 
 **Tier-B experiment v4 (sequential recalibrated, quantile-certified).** Per-layer recalibration of activations, rank chosen by binary search on quantile-95 activation error <= 5%, blocks accepted only when r*(out+in) < out*in: **0 blocks accepted** across the 18 GatedDeltaNet layers (PPL unchanged 2.2646 -> 2.2646, params saved 0.00%). Diagnostic: activation-whitened singular spectra decay too slowly for any memory-winning rank to sit under a 5% worst-case error bar. Conclusion: **no real weight compression from certified low-rank truncation on this family**; the only measured lossless-ish lever remains int4 group-wise quantization of MLP blocks (+0.0037 PPL). Certificate-gated compression is a correct *filter*, not a compressor.
 
+
+**Generality check (2026-11-26).** Same protocol (sequential recalibration, quantile-95 <= 5%, memory-win condition) on three hybrid models:
+
+| model | params | baseline PPL | blocks accepted | ranks | params saved | dPPL |
+|---|---|---|---|---|---|---|
+| Qwen3.5-0.8B | 752M | 2.2646 | 0 | - | 0.00% | +0.0000 |
+| Qwen3.5-2B | 1882M | 2.1601 | 2 (in_proj_b) | 15 | ~0.00% | +0.0002 |
+| Qwen3.5-4B | 4206M | 2.0358 | 10 (in_proj_a/b) | 30-31 | ~0.00% | +0.0001 |
+
+Accepted blocks are only the skinny projections whose max rank is near-full; all large projections are rejected in every model. The negative result is consistent across scale.
+
 *Compiled from: the announcement PDF, the Lean source tree, MIT's GRH verification page, the Lean/Mathlib joint statement, and a fresh independent con-ron run performed on this machine.*
