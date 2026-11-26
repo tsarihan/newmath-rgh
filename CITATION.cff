@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this reading guide, please cite it together with the primary sources listed in the README."
+title: "newmath-rgh: reading guide to the new mathematics in Alpöge's Lean-verified Riemann Hypothesis proof, with an independent verification receipt"
+type: report
+authors:
+  - family-names: Sarihan
+    given-names: Tom
+    affiliation: "Desnet AI LLC"
+version: 1.0.0
+doi: 10.5281/zenodo.24569969
+date-released: 2026-11-26
+url: https://github.com/tsarihan/newmath-rgh
+license: MIT
+keywords:
+  - Riemann hypothesis
+  - Lean 4
+  - formal verification
+  - mathematics

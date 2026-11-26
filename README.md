@@ -1,5 +1,7 @@
 # newmath-rgh
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24569969.svg)](https://doi.org/10.5281/zenodo.24569969)
+
 A structured reading guide to the **new mathematics in Levent Alpöge's Lean-verified proof of the Riemann Hypothesis** (announced 2026-11-20), plus an **independent verification receipt** produced on a 10-core Apple M1 Max.
 
 The proof itself is 17.37 million lines of Lean with **zero comments** — names and the module tree are the only documentation. This repo maps the announcement's key ideas onto concrete locations in the library, reconstructs the proof's logical spine from `Main.lean` down, and records what a reader can and cannot responsibly claim. No Lean source is vendored; everything links to the primary sources.
