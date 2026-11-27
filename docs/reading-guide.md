@@ -290,7 +290,7 @@ adopted the readable version as the base for further refactoring.
 | subtree | files | reading |
 |---|---|---|
 | `Spanning` | 91 | second moment / spanning theorem — direct citations in §13 |
-| `UpperBound` | 55 | the main inequality (M) — an upper bound on a weighted prime-power sum |
+| `UpperBound` | 55 | the composite lift and the main inequality (M) — direct citations in §14 |
 | `Congruences` | 53 | congruence bookkeeping ("winning multiplicity"), cf. §3.2 |
 | `Determinant` | 33 | norm of a chain of theta lifts + exchange identity — direct citations in §13 |
 | `OneLift` | 24 | the theta lift(s) — "one lift, one unit of multiplicity" |
@@ -395,5 +395,97 @@ twist for each prime.
 `New/Reduction/Lattices/{Heights,TwistedLattice}` → `New/Reduction/{PrimeSums,IntegralTargetForms,
 ShortAndEnough}` (A and B) → `New/Determinant/Twist/LongForms` (C) →
 `New/Reduction/MainInequality` → `New/Reduction/OneSidedBound`.
+
+
+## 14. Direct citations: `UpperBound` (added 2026-11-27, v1.3.0)
+
+`UpperBound` (55 files) is the "composite lift" half of the main inequality: it supplies the
+upper bound on the prime-power sum that the spanning theorem and determinant are compared
+against. Quotations from `GUIDE.md`/`INDEX.md`.
+
+Subtree sizes: `Seesaw` 15, `Objects` 12, `Divisibility` 11, `ElementaryDivisors` 10, `Size` 4,
+`Kernels` 3.
+
+From `GUIDE.md`: "Theta kernels between definite spaces (`Kernels`); Source forms, target forms
+and chains of lifts (`Objects`); The seesaw identity (`Seesaw`); Divisibility of the composite
+lift (`Divisibility`); Size of the composite lift; short source forms (`Size`); Elementary
+divisors of a Hecke operator (`ElementaryDivisors`)."
+
+### Objects — the main definitions (12 files)
+
+`Objects/LabelsAndIndexTypes`, `Objects/Rows` (target forms), `Objects/Columns` (source forms,
+chain data, composite lift), `Objects/RowChain` ("the chain Y₀ → Y_m"), `Objects/PoincareMap`.
+Glossary (GUIDE §2): **lift** — "theta lift: adelic, by class sums, the chain Y₀ → Y_m, and
+W_j → V_j"; **composite lift** — the m-fold object whose divisibility and size the section
+bounds.
+
+### Seesaw — `D.seesaw_identity` and its unfolding (15 files)
+
+`Seesaw/SeesawIdentity` (with `PoincareMap`, `IntegralAsCosetSum`, `AdmissibleCombinations`,
+`StandardLines`, `Sandwich`, `EdgePairEvaluation`, `Frequency`, `NeighbourLattice`,
+`NeighbourVacuum`, `AdmissibleEvaluation`, `GoodDatum`, `UnfoldingStages`, `Cut`).
+
+INDEX (verbatim): "Each period in the seesaw unfolding is a constant times a finite sum over
+cosets of a small level, weighted by reciprocals of stabiliser indices that divide powers of the
+norm of the twist's conductor. **So the coefficients of the definite chain get no new
+denominators away from the conductor.**" Literature: B. Wang (2025); Gomez–Zhu (2014);
+Gan–Ichino (2016); Gross (1999); Hsieh–Namikawa (2015); X. Zhang (2022).
+
+`Seesaw/GluedLevel` — related to **Nikulin's criterion for extending isometries to an
+overlattice** (the congruence on h plays the isometry-preservation role) — this is the
+gluing/span theme of §3.2 in concrete form.
+
+### Divisibility — "winning multiplicity" (11 files)
+
+- `Divisibility/MarkOperator` (+ `HeckeEdges`): **elementary divisors of one scaled Hecke
+  operator** on the integral source forms — Arsovski (2019); Liu–Truong–Xiao–Zhao (2023);
+  Fakhruddin–Pilloni (2021).
+- `Divisibility/ValuationAtLevel` (+ `ValuationAtNonSplitPrimes`): N-adic valuation of the lifts
+  between the X_j at the level prime N — Z. Liu (2025, arXiv 2510.21644); Rallis (1982).
+- `Divisibility/LocalDivisibility` (+ `ChainDatumExpansion`): "the divisibility of the composite
+  lift at each prime" — "At an inert prime p pairing two a-places, each lift may lose
+  divisibility. Outside a sparse set of such p, the chain regains the predicted power of p, up
+  to about one lift's loss, on the image of scaled Hecke operators above p applied once per
+  lift." Literature: X. Zhang (2022); Berger (2009); Prasanna (2006); Laffarge (2011).
+
+This is the mechanism our §3.1 called "each lift contributes one unit of multiplicity": the
+chain regains the prime power "up to about one lift's loss" — the rewrite states the
+combinatorial content of the chain explicitly.
+
+### ElementaryDivisors — Stepanov's count (10 files)
+
+- `ElementaryDivisors/RootLemma`: **"Gauss filtrations, Stepanov's count and the root lemma"** —
+  Ghate–Jana (2025); Imai–Koskivirta (2021); **Bombieri, "Counting points on curves over finite
+  fields", Sém. Bourbaki 430 (1973)**.
+- `ElementaryDivisors/AveragingMap`: "removing the terms of large defect in all Levi translates
+  at once" — Benson–Doty (2009); Green (1980); Donkin (1986).
+- `ElementaryDivisors/DefectCount` (+ `TwistingData`, `Depth`, `PieriCone`): "the dimension of
+  the forms of bounded defect" — Forrester–Zhang (2021, after Dixon 1905, Anderson 1991);
+  Bombieri (1973); Okounkov (1996).
+- `ElementaryDivisors/InvariantAverage`: the Schur algebra and group elements spanning it in
+  degrees below the field size — Green (1980); Benson–Doty (2009).
+
+**This is the direct textual confirmation of the Stepanov reading**: the rewrite's own index
+names "Stepanov's count" and cites Bombieri's exposition of Stepanov's method for counting
+points on curves.
+
+### Kernels and Size (7 files)
+
+- `Kernels/JetConjugatesAndBounds`: Galois conjugates of jets of theta functions and
+  archimedean bounds — Bannai–Kobayashi (2010); Kings–Sprang (2019); Katz (1978).
+- `Size/Estimates` (+ `ClassCount`): numerical inequalities between the parameters of the data
+  — Borel (1963); Weil (1965); Bombieri–Vaaler (1983) via the reduction-theory library.
+
+### Relation to earlier sections
+
+- §3.1's chained lifts and the "one lift, one unit of multiplicity" heuristic now have exact
+  anchors: `Objects/RowChain`, `Divisibility/LocalDivisibility`, with the quantitative gap
+  "up to about one lift's loss".
+- §3.2's Stepanov analogy is stated in the rewrite itself (`ElementaryDivisors/RootLemma`:
+  "Stepanov's count"), with Bombieri (1973) as the cited source.
+- §3.3's seesaw is `Seesaw/SeesawIdentity`, with the denominator-control statement quoted
+  above, plus the Nikulin/gluing criterion in `Seesaw/GluedLevel`.
+- The "√X" chain-length remark of the announcement still does not appear anywhere in
+  `UpperBound`; the quantitative object is the m-fold chain and its per-prime divisibility.
 
 *Compiled from: the announcement PDF, the Lean source tree, MIT's GRH verification page, the Lean/Mathlib joint statement, and a fresh independent con-ron run performed on this machine.*
