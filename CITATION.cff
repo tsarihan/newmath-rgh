@@ -6,9 +6,9 @@ authors:
   - family-names: Sarihan
     given-names: Tom
     affiliation: "Desnet AI LLC"
-version: 1.0.0
+version: 1.1.0
 doi: 10.5281/zenodo.24569969
-date-released: 2026-11-26
+date-released: 2026-11-27
 url: https://github.com/tsarihan/newmath-rgh
 license: MIT
 keywords:

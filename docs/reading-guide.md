@@ -265,4 +265,50 @@ Debug history retained by design: searchsorted on a descending array gave rank 1
 
 Accepted blocks are only the skinny projections whose max rank is near-full; all large projections are rejected in every model. The negative result is consistent across scale.
 
+
+## 12. The 300k-line rewrite (added 2026-11-27, v1.1.0)
+
+On 2026-11-25, **Luke Sernau** (Anthropic researcher) released a shortened Lean formalization
+of the same proof: [github.com/lsernau/grh-lean](https://github.com/lsernau/grh-lean),
+**Apache-2.0**, "A short Lean 4 proof of the Generalized Riemann Hypothesis". It is a rewrite,
+not a new result: **300,000 lines in the "readable" version, 76,000 in a "compact" version**
+(`grh-compact/`), versus 17.37M in Alpöge's original. Andrew Sutherland independently verified
+both shortened versions as correct on 2026-11-26
+([math.mit.edu/~drew/shortgrh](https://math.mit.edu/~drew/shortgrh/)), and the Lean community
+adopted the readable version as the base for further refactoring.
+
+**This is now the right substrate for reading.** The readable tree splits cleanly:
+
+| part | files | lines | meaning |
+|---|---|---|---|
+| `grh/src/Lib` | 495 | 177,492 | known results from the literature, missing from Mathlib; imports nothing from `New` |
+| `grh/src/New` + `Main.lean` + `Statements.lean` | 308 | 122,410 | **the actual argument** |
+| `grh/Challenge.lean`, `comparator.json` | — | — | comparator-based statement checking, as in the community repo |
+
+`src/New` maps almost one-to-one onto the author's remark and onto this guide:
+
+| subtree | files | reading |
+|---|---|---|
+| `Spanning` | 91 | spanning/span arguments (the "span" certificates of this guide's §3) |
+| `UpperBound` | 55 | the main inequality (M) — an upper bound on a weighted prime-power sum |
+| `Congruences` | 53 | congruence bookkeeping ("winning multiplicity"), cf. §3.2 |
+| `Determinant` | 33 | the natively-automorphic determinant method (Stepanov without multiplicity) |
+| `OneLift` | 24 | the theta lift(s) — "one lift, one unit of multiplicity" |
+| `Derivatives` | 23 | the "multiplicity ~ differentiating whole numbers" theme from the remark |
+| `Reduction` | 17 | reduction of the main statement to the MainInequality |
+| `Appendix` | 9 | auxiliary material |
+
+**Human-readable account (still incomplete).** Michael Rubinstein (Waterloo) released a
+265-page working draft (v2, 2026-11-22) explaining the proof for ζ in classical analytic
+number-theory style: it deduces RH from the main inequality (M) plus two estimates for
+Dirichlet characters, but **(M) itself is not proved there** — the draft reduces RH to thirteen
+numbered hypotheses and says which inputs come from the Lean development. As of 2026-11-27 no
+complete human-readable proof has been published; the Wikipedia article
+("Alpöge's proof of the Riemann hypothesis") tracks the timeline.
+
+**Corrections.** An earlier version of this guide was anchored to the 17.37M-line tree; the
+Sernau rewrite supersedes it as a reading target. The interpretive caveats of §1 still apply:
+the Lean source carries no comments, and maps above are readings of names, not the author's
+own exposition.
+
 *Compiled from: the announcement PDF, the Lean source tree, MIT's GRH verification page, the Lean/Mathlib joint statement, and a fresh independent con-ron run performed on this machine.*
