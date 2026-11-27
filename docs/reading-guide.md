@@ -289,10 +289,10 @@ adopted the readable version as the base for further refactoring.
 
 | subtree | files | reading |
 |---|---|---|
-| `Spanning` | 91 | spanning/span arguments (the "span" certificates of this guide's §3) |
+| `Spanning` | 91 | second moment / spanning theorem — direct citations in §13 |
 | `UpperBound` | 55 | the main inequality (M) — an upper bound on a weighted prime-power sum |
 | `Congruences` | 53 | congruence bookkeeping ("winning multiplicity"), cf. §3.2 |
-| `Determinant` | 33 | the natively-automorphic determinant method (Stepanov without multiplicity) |
+| `Determinant` | 33 | norm of a chain of theta lifts + exchange identity — direct citations in §13 |
 | `OneLift` | 24 | the theta lift(s) — "one lift, one unit of multiplicity" |
 | `Derivatives` | 23 | the "multiplicity ~ differentiating whole numbers" theme from the remark |
 | `Reduction` | 17 | reduction of the main statement to the MainInequality |
@@ -310,5 +310,90 @@ complete human-readable proof has been published; the Wikipedia article
 Sernau rewrite supersedes it as a reading target. The interpretive caveats of §1 still apply:
 the Lean source carries no comments, and maps above are readings of names, not the author's
 own exposition.
+
+
+## 13. Direct citations: `Spanning` and `Determinant` (added 2026-11-27, v1.2.0)
+
+Sernau's rewrite ships the author's own documentation — `grh/GUIDE.md` (reading order,
+glossary, folder table) and `grh/INDEX.md` (one row per result with its literature
+references). Because the rewrite is Apache-2.0, the map below cites the Lean files directly
+instead of inferring from names. Quotations are from `GUIDE.md`/`INDEX.md`.
+
+### The three theorems and the main inequality (the spine)
+
+| | Lean | File | Meaning (GUIDE) |
+|---|---|---|---|
+| **A** short forms | `D.span_short_integralRamified_eq_top`, `D.indexLe_normalizedPoincare` | `New/Spanning/SecondMoment/SpanningTheorem` | "the dimension of the target and one good translate of the Poincaré map" |
+| **B** enough forms | `D.enough_forms` | `New/Reduction/ShortAndEnough` | enough forms for the comparison |
+| **C** integral forms are long | `D.integral_forms_long` | `New/Determinant/Twist/LongForms` | "the lower bound: covolume and twice the index together are at least about the main amount" |
+| main inequality | `star_inequality` | `New/Reduction/MainInequality` | combines A, B, C; its head "lists the inputs, what cancels and the errors" |
+
+### `Spanning` — "a second moment"
+
+From `GUIDE.md`: "The second moment and the spanning theorem (`SecondMoment`); Equality of
+multiplicities (`Multiplicities`); Measures and Bessel functions (`Bessel`); Unfolding, and the
+proof of the moments (`Unfolding`); The remaining terms (`RemainingTerms`); The main term
+(`MainTerm`); Two frames at one place (`Frames`)."
+
+Key files and their cited literature (INDEX):
+
+- `Spanning/SecondMoment/SpanningTheorem` — Petersson (1932); Benedetto–Fickus (2003); Muić (2010)
+- `Spanning/Multiplicities/EqualMultiplicities` — Harris–Labesse (2004); Labesse (2011)
+- `Spanning/Bessel/CutTailBound` + `Bessel/Orthonormality` — Muić (2015); Miličić (1977); Wallach (1992)
+- `Spanning/Unfolding/Moments` — Herman (2011); Iwaniec–Li (2007); Michel–Ramakrishnan–Yang (2023)
+- `Spanning/MainTerm/GlobalSieve`, `EnergyEstimate` — Jacquet (2003/2004); Jacquet–Ye (1999); Blomer–Buttcane (2015); Deshouillers–Iwaniec (1982); Siegel (1935)
+- `Spanning/Frames/*` (20 files: `QuadricVolumes`, `QuadricPlancherel`, `TwoGauges`, `Densities`, …) — the "two frames at one place"; this is where our §3.2 definite-sign/quadric reading sits in the rewrite
+- `Spanning/RemainingTerms/SiegelLemma` — Bombieri–Vaaler (1983)
+
+This is our §3.1–3.2 machinery in the author's terms: a **second-moment (span) theorem** for
+short source forms, Bessel-function bounds at the real places, and frame/quadric volume
+computations.
+
+### `Determinant` — the norm of a chain of lifts
+
+From `GUIDE.md`: "A twist for each prime (`Twist`); Norms of theta lifts (`Norms`); The
+exchange identity (`Exchange`); The norm of a chain of lifts (`Chain`); Auxiliary forms
+(`AuxiliaryForms`)."
+
+- `Determinant/Norms/AdjointThetaLift` — J.-S. Li (1992); Cossutta–Marshall (2011); Rallis (1984, 1987)
+- `Determinant/Exchange/TheoremForPartners` (+ `NegativeIndices`, `EquivariantDifference`, `ConeImage`, `LargeTriple`, `RealVectors`, `VanishingDescends`) — Snitz (2007); Erez (2024); Gan–Qiu–Takeda (2014)
+- `Determinant/Exchange/OneSquare` — Kudla (1984); Chan (2020); He (2005) — "one square: up then down against down then up", the seesaw identity
+- `Determinant/Chain/ChainNorms` (+ `TriangleLifts`, `NormOfChain`) — Gan–Qiu–Takeda (Thm 1.3, 2014); Bruinier–Funke (2010); He (2005)
+- `Determinant/AuxiliaryForms/DeepLevelVanishing` — Prasad–Schulze-Pillot (2008); Harris (2014)
+- `Determinant/Twist/FitTwists` — Prasanna (2006); Klosin (2009); Mazur–Rubin (2010)
+
+This is the "natively-automorphic determinant" of §3.2: **norms along a chain of theta lifts**
+(`NormOfChain` defines the two determinants), an exchange identity of Siegel–Weil type, and a
+twist for each prime.
+
+### Glossary anchors (from `GUIDE.md` §2)
+
+- **prime sum / gain** — "the sum of Λ(ν)(1 − χ_K(ν))·(y/ν − κ(−νσ))₊ over 1 ≤ ν ≤ a, at an
+  order y and a place σ; its part at p divided by 2 log p, and the exponent of p asked to
+  divide the composite lift" — the von Mangoldt sum of §3.1 in the rewrite's terms.
+- **twist** — anticyclotomic automorphic character of U(1), tamely ramified on a set Q disjoint
+  from its conjugate; m-fold if its first m powers still ramify at every place of Q.
+- **seesaw** — `D.seesaw_identity`: on ramified source forms, lowerChain ∘ Poincaré series is
+  c times the composite lift; "an iterated seesaw identity" — §3.3's seesaw, stated.
+- **jet** — P(∂)F(0), a Taylor coefficient of a theta function — the "derivative" theme (§3.2).
+- **string** — the m−1−j vectors added to X_j to give Y_j: hyperbolic pairs and a middle vector.
+
+### Corrections to earlier interpretation
+
+- §3.1 said the chain length is "≈ √X", quoting the announcement. The rewrite's glossary and
+  INDEX **do not restate a √X chain length**; the chain index is m (m-fold twists, chain
+  Y₀ → Y_m), with m fixed by the error budget and determinant sizes. The √X claim remains the
+  author's own remark, not something the rewrite documents — flagged here rather than dropped.
+- §3.2's "multiplicity 2 on O(2,n)" reading is consistent with `Multiplicities/EqualMultiplicities`
+  (Harris–Labesse, Labesse) but the rewrite states it as equality of multiplicities for good
+  forms, not as "multiplicity 2".
+- The folder names `Frames` and `QuadricVolumes` confirm that the definite-sign/quadric
+  machinery is a first-class part of the argument, which our §3.2 inferred from the remark.
+
+**Reading order recommended by the author** (GUIDE §1): `Statements.lean` → `Main.lean` →
+`New/Reduction/Data/{FieldsAndPlaces,AdmissibleData,LevelAndTwists,Sizes}` →
+`New/Reduction/Lattices/{Heights,TwistedLattice}` → `New/Reduction/{PrimeSums,IntegralTargetForms,
+ShortAndEnough}` (A and B) → `New/Determinant/Twist/LongForms` (C) →
+`New/Reduction/MainInequality` → `New/Reduction/OneSidedBound`.
 
 *Compiled from: the announcement PDF, the Lean source tree, MIT's GRH verification page, the Lean/Mathlib joint statement, and a fresh independent con-ron run performed on this machine.*
