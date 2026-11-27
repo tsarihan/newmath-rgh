@@ -1,6 +1,6 @@
 # newmath-rgh
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24569969.svg)](https://doi.org/10.5281/zenodo.24569969)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24569968.svg)](https://doi.org/10.5281/zenodo.24569968)
 
 A structured reading guide to the **new mathematics in Levent Alpöge's Lean-verified proof of the Riemann Hypothesis** (announced 2026-11-20), plus an **independent verification receipt** produced on a 10-core Apple M1 Max.
 
